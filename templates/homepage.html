@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <title>Home</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+</head>
+
+<script type="text/javascript">
+  function myfunc(e,f){
+    //alert(e.innerHTML);
+    var movie_name = e.innerHTML;
+    //var movie_name = document.getElementById(e).innerHTML;
+    //alert(movie_name.innerHTML);
+    //alert(movie_name)
+    //alert(movie_name);
+    //document.getElementById("modal-title").innerHTML(movie_name);
+    document.getElementById("mt").innerHTML = movie_name;
+    document.getElementById("movie_name").value = movie_name;
+    document.getElementById("mid").value = f;
+    //alert(document.getElementById("mt").innerHTML);
+
+  }
+
+
+</script>
+
+
+<body>
+
+
+<nav class="navbar navbar-inverse navbar-fixed-top" style="background-color:black;">
+
+<div class="container-fluid">
+
+<h2 style="color:red">Welcome {{ uname }}</h2>
+</div>
+
+
+
+</nav>
+
+
+
+<br/>
+
+
+
+<div class="container">
+  <ul class="nav nav-pills">
+    <li class="nav-item">
+      <a class="nav-link active" href="#">Top</a>
+    </li>
+    <li class="nav-item">
+      <a class="nav-link" href="{{ url_for('recommender_page') }}">Recommended</a>
+    </li>
+    <li class="nav-item">
+      <a class="nav-link" href="{{ url_for('popular_page') }}">Popular</a>
+    </li>
+    <li class="nav-item">
+      <a class="nav-link" href="#">Reviews</a>
+    </li>
+  </ul>
+</div>
+
+<a href="{{ url_for('logout') }}" class="btn btn-info" role="button" style="position:relative;top:-30px;left:1150px;" >Logout</a>
+<br>
+
+<div class="container"> 
+
+<p><b>Because you like {{ val }}</b></p>
+
+<table class="table table-striped" style="width:200;">
+ <thead>
+      <tr>
+        <th>Title</th>
+        <th> Year </th>
+        <th> ID </th>
+        <th> Likes </th>
+      </tr>
+    </thead>
+    {% for row in x %}
+    <tr>
+      <td id= '{{ row.Name }}' > {{ row.Name }} </td>
+      <td> {{ row.year }} </td>
+      <td id = '{{ row.id }}'> {{ row.id }} </td>
+      <td>  <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#myModal" onclick="myfunc({{row.Name}},{{ row.id }})">
+    Like
+  </button> </td>
+    </tr>
+    {% endfor %}
+
+
+</table>
+
+<br>
+
+<!--<p><b>Because you like {{ val1 }}</b></p>-->
+
+</div>
+
+
+<!-- The Modal -->
+  <div class="modal" id="myModal">
+    <div class="modal-dialog">
+      <div class="modal-content">
+      
+        <!-- Modal Header -->
+        <div class="modal-header">
+          <h4 class="modal-title" id="mt"></h4>
+          <button type="button" class="close" data-dismiss="modal">&times;</button>
+        </div>
+        <!-- Modal body -->
+        <div class="modal-body">
+          <img src="" alt="" style="width:100%;height:300px;">
+          <form action="{{ url_for('insert_user_rating')}}" method="POST">
+             Movie Name: 
+             <input type="text" name="movie_name" id="movie_name"><br><br>
+             ID:
+             <input type="text" name="movie_id" id="mid"><br>
+             <br>
+             Give Ratings:
+             <input type="number" name="rating"><br><br>
+           <center><input type="submit"></center>
+          </form>
+        </div>
+        <!-- Modal footer -->
+        <div class="modal-footer">
+          <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+        </div>
+
+        
+      </div>
+    </div>
+  </div>
+
+
+<script>
+if ( window.history.replaceState ) {
+  window.history.replaceState( null, null, window.location.href );
+}
+</script>
+
+</body>
+</html>
