@@ -190,6 +190,10 @@ def recommender_page():
 def popular_page():
 	return render_template('popular.html',uname='Rajesh')
 
+@app.route('/reviews_page')
+def reviews_page():
+	return render_template('reviews.html',uname='Rajesh')
+
 @app.route('/insert_user_rating',methods=['POST'])
 def insert_user_rating():
 	movie_name = request.form['movie_name']
