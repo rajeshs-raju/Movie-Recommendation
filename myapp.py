@@ -1,6 +1,4 @@
 from flask import Flask, render_template,request,session,redirect,url_for
-#from ipynb.fs.full.mr import * 
-#from mr import *
 from hybrid import build_chart,get_recommendations,hybrid
 import sqlite3 as sql
 import pandas as pd
@@ -8,18 +6,6 @@ import csv
 import random
 
 app = Flask(__name__)
-
-'''
-data = pd.read_csv('movies.csv')
-
-movies_list = data['title'].tolist()
-genre_list = data['genres'].tolist()
-
-movies_dict = {}
-
-for i in range(len(movies_list)):
-	movies_dict[movies_list[i]] = genre_list[i]
-'''
 
 @app.route('/')
 def login_page():
